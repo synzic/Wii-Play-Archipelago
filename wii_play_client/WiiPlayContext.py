@@ -30,8 +30,8 @@ LOCATION_ID_TO_NAME = {loc_id: name for name, loc_id in LOCATION_NAME_TO_ID.item
 CONSUMABLE_STORAGE_CATEGORY = "wii_play_consumables"
 LOCATION_STORAGE_CATEGORY = "wii_play_locations"
 HIGH_SCORE_STORAGE_CATEGORY = "wii_play_high_scores" 
-CLIENT_VERSION = "0.0.2"
-COMPATIBLE_VERSIONS = ("0.0.1",)
+CLIENT_VERSION = "0.1.0"
+COMPATIBLE_VERSIONS = ("0.0.1", "0.0.2",)
 
 GAMES = ("Shooting Range", "Find Mii", "Table Tennis", "Pose Mii",
          "Laser Hockey", "Billiards", "Fishing", "Charge!", "Tanks!")
