@@ -30,8 +30,8 @@ LOCATION_ID_TO_NAME = {loc_id: name for name, loc_id in LOCATION_NAME_TO_ID.item
 CONSUMABLE_STORAGE_CATEGORY = "wii_play_consumables"
 LOCATION_STORAGE_CATEGORY = "wii_play_locations"
 HIGH_SCORE_STORAGE_CATEGORY = "wii_play_high_scores" 
-CLIENT_VERSION = "0.1.0"
-COMPATIBLE_VERSIONS = ("0.0.1", "0.0.2",)
+CLIENT_VERSION = "0.1.1"
+COMPATIBLE_VERSIONS = ("0.0.1", "0.0.2", "0.1.0")
 
 GAMES = ("Shooting Range", "Find Mii", "Table Tennis", "Pose Mii",
          "Laser Hockey", "Billiards", "Fishing", "Charge!", "Tanks!")
@@ -209,7 +209,7 @@ class WiiPlayContext(SuperContext):
     def high_score_storage_key(self) -> Optional[str]:
         """Returns a key which is linked to the game and the slot name"""
 
-        if self.seed is None or self.slot is None:
+        if self.slot is None:
             return None
         return f"{HIGH_SCORE_STORAGE_CATEGORY}_{self.slot}"
 
@@ -247,7 +247,7 @@ class WiiPlayContext(SuperContext):
     def consumable_storage_key(self) -> Optional[str]:
         """Returns a key which is linked to the game and the slot name"""
 
-        if self.seed is None or self.slot is None:
+        if self.slot is None:
             return None
         return f"{CONSUMABLE_STORAGE_CATEGORY}_{self.slot}"
 
@@ -369,7 +369,6 @@ class WiiPlayContext(SuperContext):
         if cmd == "Connected":
             ap_locations_checked = args["checked_locations"]
             self.locations_checked.update(ap_locations_checked)
-            self.seed = self.server_seed_name
 
             self.slot_data = args.get("slot_data", {})
 
