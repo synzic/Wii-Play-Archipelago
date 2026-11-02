@@ -599,6 +599,8 @@ class WiiPlayContext(SuperContext):
             await self.check_tanks()
         elif self.connection_state == ConnectionState.FISHING:
             await self.check_fish()
+        elif self.connection_state == ConnectionState.POSE_MII:
+            await self.check_pose_mii()()
         await self.check_goal()
         if self.ready_to_handle():
             await self.process_queue(self.filler_to_give, self.apply_filler)
