@@ -30,8 +30,8 @@ LOCATION_ID_TO_NAME = {loc_id: name for name, loc_id in LOCATION_NAME_TO_ID.item
 CONSUMABLE_STORAGE_CATEGORY = "wii_play_consumables"
 LOCATION_STORAGE_CATEGORY = "wii_play_locations"
 HIGH_SCORE_STORAGE_CATEGORY = "wii_play_high_scores" 
-CLIENT_VERSION = "0.1.1"
-COMPATIBLE_VERSIONS = ("0.0.1", "0.0.2", "0.1.0")
+CLIENT_VERSION = "0.1.2"
+COMPATIBLE_VERSIONS = ("0.0.1", "0.0.2", "0.1.0", "0.1.1")
 
 GAMES = ("Shooting Range", "Find Mii", "Table Tennis", "Pose Mii",
          "Laser Hockey", "Billiards", "Fishing", "Charge!", "Tanks!")
@@ -687,6 +687,13 @@ class WiiPlayContext(SuperContext):
         name = FISH_LOCATIONS.get(length)
         if name is not None:
             await self.send_new_checks({LOCATION_NAME_TO_ID[name]})
+
+    async def check_pose_mii(self) -> None:
+        pose_level = self.game_interface.dolphin_client.read_word(PoseMiiAddresses.pose_level)
+        if not 0 <= pose_level <= 15:
+            return
+        ids = {LOCATION_NAME_TO_ID[f"Pose Mii - Stage {n} Complete"] for n in range(1, pose_level + 1)}
+        await self.send_new_checks(ids)
 
     async def apply_filler(self, name: str) -> bool:
         client = self.game_interface.dolphin_client

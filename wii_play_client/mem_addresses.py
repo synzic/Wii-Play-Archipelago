@@ -84,6 +84,9 @@ class RequiredAddreses:
     last_selected_mii = 0x80842b14 # Word, 1-6 guests
     player_count_check = 0x91b3bac4 # Word, 0x01 is 1 player, 0x00 is selecting, 0x02 is two player
 
+class PoseMiiAddresses:
+    pose_level =  0x91cf5380
+
 class FishingAddresses:
     score             = 0x91b6b09c   # Word
     total_fish_caught      = 0x91b6b0b4   # Word
