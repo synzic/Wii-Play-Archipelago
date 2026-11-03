@@ -779,6 +779,8 @@ class WiiPlayContext(SuperContext):
     async def restore_progress(self) -> bool:
         if not self._high_scores_load_event.is_set():
             return False
+        if not self.slot:
+            return False
         client = self.game_interface.dolphin_client
         levels = self.medal_levels_from_ap()
         for game in GAMES:
