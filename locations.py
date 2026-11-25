@@ -79,7 +79,7 @@ table_tennis_locations = {
 
 table_tennis_rally_locations = {
     f"Table Tennis - {rallies} {'Rally' if rallies == 1 else 'Rallies'}":
-        LocData(base_id + 410 + rallies)
+        LocData(base_id + 4000 + rallies)
     for rallies in range(1, 101)
 }
 
