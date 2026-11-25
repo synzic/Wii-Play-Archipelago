@@ -69,6 +69,8 @@ class WiiPlayWorld(World):
         #"find_mii_challengesanity",
         "fishsanity",
         "foulsanity",
+        "rallysanity",
+        "rallyrange",
         "starting_games",
     )
 
