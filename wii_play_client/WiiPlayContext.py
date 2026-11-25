@@ -399,7 +399,7 @@ class WiiPlayContext(SuperContext):
                     f"========================================="
                 )
             else:
-                logger.info(f"Version check passed! (v{CLIENT_VERSION}). This is a developer only version of Wii Play that will not be released. Tread carefully!")
+                logger.info(f"Version check passed! (v{CLIENT_VERSION}).")
 
             asyncio.create_task(self.load_handled_consumables(initialise=True))
             asyncio.create_task(self.load_high_scores())
