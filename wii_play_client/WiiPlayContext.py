@@ -30,8 +30,8 @@ LOCATION_ID_TO_NAME = {loc_id: name for name, loc_id in LOCATION_NAME_TO_ID.item
 CONSUMABLE_STORAGE_CATEGORY = "wii_play_consumables"
 LOCATION_STORAGE_CATEGORY = "wii_play_locations"
 HIGH_SCORE_STORAGE_CATEGORY = "wii_play_high_scores" 
-CLIENT_VERSION = "0.1.2"
-COMPATIBLE_VERSIONS = ("0.0.1", "0.0.2", "0.1.0", "0.1.1")
+CLIENT_VERSION = "0.1.3"
+COMPATIBLE_VERSIONS = ()
 
 GAMES = ("Shooting Range", "Find Mii", "Table Tennis", "Pose Mii",
          "Laser Hockey", "Billiards", "Fishing", "Charge!", "Tanks!")
@@ -54,7 +54,7 @@ FOUL_LOCATIONS = {
     1: "Billiards - Your 1st Foul",
     3: "Billiards - Natural Fouler! (3 Fouls)",
     6: "Billiards - Ooh, it's not looking good. (6 Fouls)",
-    10: "Billiards - How do you do it? (10 Fouls)",
+    9: "Billiards - How do you do it? (9 Fouls)",
 }
 
 FISH_LOCATIONS = {
@@ -399,7 +399,7 @@ class WiiPlayContext(SuperContext):
                     f"========================================="
                 )
             else:
-                logger.info(f"Version check passed! (v{CLIENT_VERSION})")
+                logger.info(f"Version check passed! (v{CLIENT_VERSION}). This is a developer only version of Wii Play that will not be released. Tread carefully!")
 
             asyncio.create_task(self.load_handled_consumables(initialise=True))
             asyncio.create_task(self.load_high_scores())
@@ -678,6 +678,8 @@ class WiiPlayContext(SuperContext):
 
     async def check_fouls(self) -> None:
         fouls = self.game_interface.dolphin_client.read_word(BilliardsAddresses.fouls)
+        if fouls > 9:
+            return
         ids = {LOCATION_NAME_TO_ID[name] for need, name in FOUL_LOCATIONS.items() if fouls >= need}
         await self.send_new_checks(ids)
 

@@ -77,6 +77,12 @@ table_tennis_locations = {
     "Table Tennis - No Net Losses (Gold Medal)": LocData(base_id + 403),
 }
 
+table_tennis_rally_locations = {
+    f"Table Tennis - {rallies} {'Rally' if rallies == 1 else 'Rallies'}":
+        LocData(base_id + 410 + rallies)
+    for rallies in range(1, 101)
+}
+
 fishing_locations = {
     "Fishing - Bronze Medal": LocData(base_id + 501),
     "Fishing - Silver Medal": LocData(base_id + 502),
@@ -101,7 +107,7 @@ billiards_foulsanity_locations = {
     "Billiards - Your 1st Foul": LocData(base_id + 651),
     "Billiards - Natural Fouler! (3 Fouls)": LocData(base_id + 652),
     "Billiards - Ooh, it's not looking good. (6 Fouls)": LocData(base_id + 653),
-    "Billiards - How do you do it? (10 Fouls)": LocData(base_id + 654),
+    "Billiards - How do you do it? (9 Fouls)": LocData(base_id + 654),
 }
 
 charge_locations = {
@@ -141,6 +147,7 @@ location_table = {
     **pose_mii_missionsanity_locations,
     **laser_hockey_locations,
     **table_tennis_locations,
+    **table_tennis_rally_locations,
     **fishing_locations,
     **fishing_fishsanity_locations,
     **billiards_locations,
@@ -231,6 +238,14 @@ def create_regular_locations(world: "WiiPlayWorld") -> None:
         }
         for name, region in platinum_regions.items():
             region.add_locations(get_location_names_with_ids([name]), WiiPlayLocation)
+
+    if world.options.rallysanity:
+        spacing = world.options.rallyrange.value
+        rally_names = list(table_tennis_rally_locations)[spacing - 1::spacing]
+        table_tennis.add_locations(
+            get_location_names_with_ids(rally_names),
+            WiiPlayLocation,
+        )
 
 def create_events(world: "WiiPlayWorld") -> None:
     main_menu = world.get_region("Main Menu")

@@ -62,6 +62,17 @@ class Foulsanity(Toggle):
     """Adds checks for committing fouls in Billards"""
     display_name = "Foulsanity"
 
+class Rallysanity(Toggle):
+    """Adds checks for consecutive rallies in Table Tennis."""
+    display_name = "Rallysanity"
+
+class ChecksPerRallysanity(Range):
+    """Sets the spacing between Table Tennis Rallysanity checks."""
+    display_name = "Rallies per Check"
+    range_start = 1
+    range_end = 20
+    default = 10
+
 class StartingGames(Range):
     """How many games are unlocked from the start."""
     display_name = "Starting Games Count"
@@ -81,6 +92,8 @@ wii_play_option_groups = [
         #FindMiiChallengesanity,
         Fishsanity,
         Foulsanity,
+        Rallysanity,
+        ChecksPerRallysanity,
     ]),
     OptionGroup("Starting Games", [
         StartingGames,
@@ -97,6 +110,8 @@ class WiiPlayOptions(PerGameCommonOptions):
 #    find_mii_challengesanity: FindMiiChallengesanity
     fishsanity: Fishsanity
     foulsanity: Foulsanity
+    rallysanity: Rallysanity
+    rallyrange: ChecksPerRallysanity
     starting_games: StartingGames
 
     start_inventory_from_pool: StartInventoryPool
